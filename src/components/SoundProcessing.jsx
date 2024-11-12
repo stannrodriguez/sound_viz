@@ -68,7 +68,7 @@ const SoundProcessing = () => {
         </div>
       </div>
 
-      <div className="relative h-[32rem] border border-gray-200 rounded-lg overflow-hidden bg-gray-50">
+      <div className="relative min-h-[300px] flex flex-col border border-gray-200 rounded-lg">
         {/* Stage 1: Air Pressure Waves */}
         {stages[0].active && (
           <div className="p-4 border-b">
@@ -162,7 +162,7 @@ const SoundProcessing = () => {
         )}
 
         {/* Description Panel */}
-        <div className="absolute bottom-0 left-0 right-0 bg-white p-4 border-t">
+        <div className="flex flex-col justify-center items-center bottom-0 left-0 right-0 bg-white p-4 border-t">
           <h3 className="font-medium mb-2">{stages[showStage].title}</h3>
           <p className="text-sm text-gray-600">
             {showStage === 0 &&
