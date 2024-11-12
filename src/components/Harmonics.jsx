@@ -154,13 +154,12 @@ export default function HarmonicsExplainer() {
 
       <div className="mt-8">
         <h2 className="text-2xl font-semibold mb-4">How Harmonics Work</h2>
-        <ul className="list-disc pl-6 space-y-2">
+        <ul className="list-disc pl-6 space-y-2 flex flex-col justify-left items-start">
           <li>The fundamental frequency is the lowest and usually the strongest component of a sound.</li>
           <li>Harmonics are integer multiples of the fundamental frequency (2x, 3x, 4x, etc.).</li>
           <li>The presence and strength of different harmonics give instruments their unique timbres.</li>
           <li>
-            Adjust the sliders above to see and hear how changing the amplitude of different harmonics affects the
-            overall sound wave and tone.
+            Adjust the sliders above to see and hear the effects of changing the amplitude of different harmonics.
           </li>
         </ul>
       </div>

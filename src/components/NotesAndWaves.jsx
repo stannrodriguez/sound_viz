@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
+import SineWaveToSound from "./SineWaveToSound";
 
 const notes = [
   { name: "C4", frequency: 261.63 },

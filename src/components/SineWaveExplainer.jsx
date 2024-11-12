@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import SineWaveToSound from "./SineWaveToSound";
 
 const waveTypes = ["sine", "square", "sawtooth", "triangle"];
 
@@ -99,6 +100,10 @@ export default function SineWaveExplainer() {
         Sound can be represented as waves, with sine waves being the most fundamental. Other wave shapes like square,
         sawtooth, and triangle are composed of multiple sine waves at different frequencies and amplitudes.
       </p>
+
+      <div className="mb-6">
+        <SineWaveToSound />
+      </div>
 
       <div className="mb-6">
         <canvas ref={canvasRef} width={800} height={300} className="w-full border rounded" />
