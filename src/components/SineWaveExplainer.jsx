@@ -102,10 +102,6 @@ export default function SineWaveExplainer() {
       </p>
 
       <div className="mb-6">
-        <SineWaveToSound />
-      </div>
-
-      <div className="mb-6">
         <canvas ref={canvasRef} width={800} height={300} className="w-full border rounded" />
       </div>
 
