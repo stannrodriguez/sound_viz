@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
 
-const SoundProcessing = ({ showStage }) => {
+const SoundProcessing = () => {
   const [time, setTime] = useState(0);
+  const [showStage, setShowStage] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
 
   useEffect(() => {
@@ -46,12 +48,24 @@ const SoundProcessing = ({ showStage }) => {
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg">
       <div className="mb-6 flex justify-between items-center">
-        <button
+        <Button
           onClick={() => setIsPlaying(!isPlaying)}
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           {isPlaying ? "Pause" : "Play"}
-        </button>
+        </Button>
+
+        <div className="space-x-2">
+          {stages.map((stage, index) => (
+            <Button
+              key={stage}
+              variant={showStage === index ? "default" : "secondary"}
+              onClick={() => setShowStage(index)}
+            >
+              Stage {index + 1}
+            </Button>
+          ))}
+        </div>
       </div>
 
       <div className="relative h-[32rem] border border-gray-200 rounded-lg overflow-hidden bg-gray-50">

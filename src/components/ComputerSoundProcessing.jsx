@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
 
-const DigitalSoundProcessing = ({ showStage }) => {
+const DigitalSoundProcessing = () => {
   const [time, setTime] = useState(0);
+  const [showStage, setShowStage] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
 
   useEffect(() => {
@@ -54,26 +56,20 @@ const DigitalSoundProcessing = ({ showStage }) => {
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg">
       <div className="mb-6 flex justify-between items-center">
-        <button
+        <Button
           onClick={() => setIsPlaying(!isPlaying)}
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           {isPlaying ? "Pause" : "Play"}
-        </button>
+        </Button>
 
-        {/* <div className="space-x-2">
+        <div className="space-x-2">
           {stages.map((stage, i) => (
-            <button
-              key={i}
-              onClick={() => setShowStage(i)}
-              className={`px-3 py-1 text-sm rounded ${
-                showStage === i ? "bg-green-500 text-white" : "bg-gray-200 text-gray-700"
-              }`}
-            >
+            <Button key={i} onClick={() => setShowStage(i)} variant={showStage === i ? "default" : "secondary"}>
               Stage {i + 1}
-            </button>
+            </Button>
           ))}
-        </div> */}
+        </div>
       </div>
 
       <div className="relative h-[32rem] border border-gray-200 rounded-lg overflow-hidden bg-gray-50">
