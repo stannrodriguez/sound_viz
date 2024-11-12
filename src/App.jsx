@@ -55,7 +55,7 @@ function SoundPhysicsApp() {
               Sound Chain
             </Button>
             <Button variant={currentView === "notes" ? "secondary" : "default"} onClick={() => setCurrentView("notes")}>
-              Notes & Waves
+              Notes
             </Button>
             <Button
               variant={currentView === "harmonics" ? "secondary" : "default"}
