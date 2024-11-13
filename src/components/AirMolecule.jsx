@@ -73,7 +73,7 @@ const AirMoleculeVis = () => {
     <div className="pt-5">
       <div className="mb-4 sm:mb-6 space-y-3 sm:space-y-4">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-          <h2 className="text-lg sm:text-xl font-medium">Air Molecule Movement</h2>
+          <h2 className="text-left text-lg sm:text-xl font-medium">Air Molecule Movement</h2>
           <button
             onClick={() => setIsPlaying(!isPlaying)}
             className="px-3 py-1 sm:px-4 sm:py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm sm:text-base"
