@@ -26,14 +26,12 @@ const SineWaveToSound = () => {
   const speakerOffset = Math.sin(time * 0.2) * 30;
 
   return (
-    <div className="p-8 bg-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-4">Sine Wave to Sound Conversion</h2>
-
+    <div className="pt-8 ">
       <div className="flex flex-col gap-8">
         {/* Digital Sine Wave */}
-        <div className="relative h-32">
-          <div className="absolute left-0 top-0 text-sm font-medium">Digital Signal</div>
-          <svg className="w-full h-full" viewBox="0 0 300 100">
+        <div className="relative h-36">
+          <div className="absolute left-0 top-0 text-sm font-medium pb-4">Digital Signal</div>
+          <svg className="w-full h-full pt-10" viewBox="0 0 300 100">
             <path
               d={`M ${points.map((p) => `${p.x},${p.y}`).join(" L ")}`}
               fill="none"
@@ -74,10 +72,6 @@ const SineWaveToSound = () => {
             ))}
           </svg>
         </div>
-      </div>
-
-      <div className="mt-4 text-sm text-gray-600">
-        Watch how the digital sine wave moves the speaker cone back and forth, creating sound waves in the air
       </div>
     </div>
   );

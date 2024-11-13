@@ -115,9 +115,14 @@ const SoundProcessing = () => {
             <h3 className="text-sm font-medium mb-2">Air Pressure Waves</h3>
             <svg className="w-full h-20" viewBox="0 0 300 60">
               {/* Air molecules */}
-              {generateWavePoints(time).map((point, i) => (
-                <circle key={i} cx={point.x} cy={point.y} r="3" fill="#2563eb" opacity="0.6" />
-              ))}
+              <path
+                d={`M ${generateWavePoints(time)
+                  .map((p) => `${p.x},${p.y}`)
+                  .join(" L ")}`}
+                stroke="#2563eb"
+                strokeWidth="2"
+                fill="none"
+              />
             </svg>
           </div>
         )}

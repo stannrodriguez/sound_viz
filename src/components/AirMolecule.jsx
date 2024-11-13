@@ -66,6 +66,20 @@ const AirMoleculeVis = () => {
     }
   }
 
+  // Generate sine wave points
+  const generateSinePoints = (offset = 0) => {
+    const points = [];
+    for (let i = 0; i < 100; i++) {
+      points.push({
+        x: i * 3,
+        y: 50 + Math.sin((i + offset) * 0.2 * frequency) * 18 * amplitude,
+      });
+    }
+    return points;
+  };
+
+  const points = generateSinePoints(time);
+
   const viewBoxWidth = cols * spacing;
   const viewBoxHeight = rows * spacing;
 
@@ -143,6 +157,35 @@ const AirMoleculeVis = () => {
           <li>Dark areas show compression (molecules closer together)</li>
           <li>Light areas show rarefaction (molecules farther apart)</li>
         </ul>
+      </div>
+
+      <p className="text-left text-sm text-gray-600 pt-4">
+        Sine waves represent sound by modeling the smooth, oscillating pressure changes that create vibrations.
+      </p>
+
+      {/* Digital Sine Wave */}
+      <div className="relative h-32 sm:h-48 md:h-54">
+        <svg className="w-full h-full pt-10 sm:h-48 md:h-54" viewBox="0 0 300 100">
+          {/* X-axis */}
+          <line x1="0" y1="50" x2="300" y2="50" stroke="#94a3b8" strokeWidth="1" />
+          <text x="290" y="65" fontSize="10" fill="#94a3b8">
+            Time
+          </text>
+
+          {/* Y-axis */}
+          <line x1="0" y1="0" x2="0" y2="100" stroke="#94a3b8" strokeWidth="1" />
+          <text x="5" y="10" fontSize="10" fill="#94a3b8">
+            Amplitude
+          </text>
+
+          {/* Sine wave */}
+          <path
+            d={`M ${points.map((p) => `${p.x},${p.y}`).join(" L ")}`}
+            fill="none"
+            stroke="#2563eb"
+            strokeWidth="2"
+          />
+        </svg>
       </div>
     </div>
   );

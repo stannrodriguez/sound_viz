@@ -2,6 +2,7 @@ import React from "react";
 import SoundProcessing from "./SoundProcessing";
 import ComputerSoundProcessing from "./ComputerSoundProcessing";
 import AirMolecule from "./AirMolecule";
+import SineWaveToSound from "./SineWaveToSound";
 
 export default function SoundChainReaction() {
   return (
@@ -13,6 +14,8 @@ export default function SoundChainReaction() {
       </p>
       <AirMolecule />
 
+      {/* <SoundCreation /> */}
+      {/* <SineWaveToSound /> */}
       <SoundProcessing />
       <ComputerSoundProcessing />
     </div>
