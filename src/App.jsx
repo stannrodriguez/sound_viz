@@ -12,6 +12,7 @@ import HarmonicsExplainer from "./components/Harmonics";
 import SineWaveExplainer from "./components/SineWaveExplainer";
 import FourierTransform from "./components/FourierTransform";
 import ExampleAnalysis from "./components/ExampleAnalysis";
+import SoundChainReaction from "./components/SoundChainReaction";
 
 function App() {
   const [showStage, setShowStage] = useState(0);
@@ -86,12 +87,7 @@ function SoundPhysicsApp() {
       </nav>
       <main className="max-w-4xl mx-auto mt-8">
         {currentView === "notes" && <NotesAndWaves />}
-        {currentView === "chain" && (
-          <>
-            <SoundProcessing />
-            <ComputerSoundProcessing />
-          </>
-        )}
+        {currentView === "chain" && <SoundChainReaction />}
         {currentView === "harmonics" && <HarmonicsExplainer />}
         {currentView === "sinewave" && <SineWaveExplainer />}
         {currentView === "fourier" && <FourierTransform />}

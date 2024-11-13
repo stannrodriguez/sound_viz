@@ -57,7 +57,7 @@ const DigitalSoundProcessing = () => {
   ];
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-lg">
+    <div className="pt-6">
       <h2 className="text-left text-xl font-semibold mb-6">How computers process sound</h2>
 
       <div className="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">

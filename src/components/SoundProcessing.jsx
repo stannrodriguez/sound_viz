@@ -49,7 +49,7 @@ const SoundProcessing = () => {
   ];
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-lg">
+    <div className="pt-6">
       <h2 className="text-left text-xl font-semibold mb-6">How the brain processes sound</h2>
       <div className="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
         <Button

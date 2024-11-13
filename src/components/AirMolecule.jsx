@@ -1,10 +1,29 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const AirMoleculeVis = () => {
   const [time, setTime] = useState(0);
   const [frequency, setFrequency] = useState(1);
   const [amplitude, setAmplitude] = useState(1);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  const isSmallScreen = dimensions.width < 768;
+
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -14,18 +33,30 @@ const AirMoleculeVis = () => {
     return () => clearInterval(timer);
   }, [isPlaying]);
 
+  // Adjust grid size based on screen width
+  const getGridSize = useCallback(() => {
+    if (dimensions.width < 480) {
+      // Mobile
+      return { rows: 6, cols: 8 };
+    } else if (dimensions.width < 768) {
+      // Tablet
+      return { rows: 7, cols: 10 };
+    }
+    return { rows: 8, cols: 15 }; // Desktop
+  }, [dimensions.width]);
+
   // Create air molecules grid
-  const rows = 8;
-  const cols = 15;
+  const { rows, cols } = getGridSize();
   const molecules = [];
+  const spacing = Math.min(40, (dimensions.width - 40) / cols);
 
   for (let row = 0; row < rows; row++) {
     for (let col = 0; col < cols; col++) {
-      const baseX = col * 40 + 20;
-      const baseY = row * 40 + 20;
+      const baseX = col * spacing + spacing / 2;
+      const baseY = row * spacing + spacing / 2;
 
       // Calculate displacement based on sine wave
-      const displacement = Math.sin(time * 0.1 * frequency + col * 0.5) * 15 * amplitude;
+      const displacement = Math.sin(time * 0.1 * frequency + col * 0.5) * (spacing / 3) * amplitude;
 
       molecules.push({
         x: baseX + displacement,
@@ -35,21 +66,24 @@ const AirMoleculeVis = () => {
     }
   }
 
+  const viewBoxWidth = cols * spacing;
+  const viewBoxHeight = rows * spacing;
+
   return (
-    <div className="p-6 bg-white rounded-lg shadow-lg">
-      <div className="mb-6 space-y-4">
-        <div className="flex justify-between items-center">
-          <h2 className="text-xl font-bold">Air Molecule Movement</h2>
+    <div className="pt-5">
+      <div className="mb-4 sm:mb-6 space-y-3 sm:space-y-4">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+          <h2 className="text-lg sm:text-xl font-medium">Air Molecule Movement</h2>
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="px-3 py-1 sm:px-4 sm:py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm sm:text-base"
           >
             {isPlaying ? "Pause" : "Play"}
           </button>
         </div>
 
-        <div className="flex items-center gap-4">
-          <span className="text-sm w-20">Frequency:</span>
+        <div className="flex items-center gap-2 sm:gap-4">
+          <span className="text-xs sm:text-sm w-16 sm:w-20">Frequency:</span>
           <input
             type="range"
             min="0.5"
@@ -61,8 +95,8 @@ const AirMoleculeVis = () => {
           />
         </div>
 
-        <div className="flex items-center gap-4">
-          <span className="text-sm w-20">Amplitude:</span>
+        <div className="flex items-center gap-2 sm:gap-4">
+          <span className="text-xs sm:text-sm w-16 sm:w-20">Amplitude:</span>
           <input
             type="range"
             min="0.2"
@@ -75,36 +109,34 @@ const AirMoleculeVis = () => {
         </div>
       </div>
 
-      <div className="relative h-80 border border-gray-200 rounded-lg overflow-hidden">
-        {/* Molecules */}
-        <svg width="100%" height="100%" viewBox="0 0 600 320">
+      <div className="relative h-60 sm:h-80 border border-gray-200 rounded-lg overflow-hidden">
+        <svg width="100%" height="100%" viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
           {molecules.map((molecule, i) => (
             <g key={i}>
-              {/* Compression indicator */}
-              <circle cx={molecule.x} cy={molecule.y} r={12} fill="#60a5fa" opacity={molecule.opacity * 0.2} />
-              {/* Air molecule */}
-              <circle cx={molecule.x} cy={molecule.y} r={4} fill="#2563eb" opacity={molecule.opacity} />
+              <circle cx={molecule.x} cy={molecule.y} r={spacing / 4} fill="#60a5fa" opacity={molecule.opacity * 0.2} />
+              <circle cx={molecule.x} cy={molecule.y} r={spacing / 12} fill="#2563eb" opacity={molecule.opacity} />
             </g>
           ))}
         </svg>
 
-        {/* Labels */}
-        <div className="absolute top-2 left-2 text-sm">
-          Areas of:
-          <div className="flex items-center gap-2 mt-1">
-            <div className="w-3 h-3 bg-blue-500 opacity-30 rounded-full"></div>
-            <span>Compression</span>
+        {!isSmallScreen && (
+          <div className="absolute top-2 left-2 text-xs sm:text-sm">
+            Areas of:
+            <div className="flex items-center gap-1 sm:gap-2 mt-1">
+              <div className="w-2 h-2 sm:w-3 sm:h-3 bg-blue-500 opacity-30 rounded-full"></div>
+              <span>Compression</span>
+            </div>
+            <div className="flex items-center gap-1 sm:gap-2">
+              <div className="w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"></div>
+              <span>Rarefaction</span>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-white rounded-full"></div>
-            <span>Rarefaction</span>
-          </div>
-        </div>
+        )}
       </div>
 
-      <div className="mt-4 text-sm text-gray-600">
-        <strong>What you're seeing:</strong>
-        <ul className="list-disc ml-5 mt-2">
+      <div className="mt-3 sm:mt-4 text-xs sm:text-sm text-gray-600">
+        <strong>What you&apos;re seeing:</strong>
+        <ul className="list-disc ml-4 sm:ml-5 mt-1 sm:mt-2">
           <li>Blue dots represent air molecules</li>
           <li>Higher frequency = faster oscillation</li>
           <li>Higher amplitude = greater displacement</li>
