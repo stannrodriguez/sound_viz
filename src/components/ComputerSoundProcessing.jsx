@@ -6,6 +6,9 @@ const DigitalSoundProcessing = () => {
   const [showStage, setShowStage] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
 
+  const viewportWidth = window.innerWidth;
+  const isSmallScreen = viewportWidth < 768;
+
   useEffect(() => {
     if (!isPlaying) return;
     const timer = setInterval(() => {
@@ -46,33 +49,76 @@ const DigitalSoundProcessing = () => {
   };
 
   const stages = [
-    { title: "1. Microphone (Analog)", active: showStage >= 0 },
-    { title: "2. Sampling (ADC)", active: showStage >= 1 },
-    { title: "3. Quantization", active: showStage >= 2 },
-    { title: "4. Binary Encoding", active: showStage >= 3 },
-    { title: "5. Digital Processing", active: showStage >= 4 },
+    { title: "Microphone (Analog)", active: showStage >= 0 },
+    { title: "Sampling (ADC)", active: showStage >= 1 },
+    { title: "Quantization", active: showStage >= 2 },
+    { title: "Binary Encoding", active: showStage >= 3 },
+    { title: "Digital Processing", active: showStage >= 4 },
   ];
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg">
-      <div className="mb-6 flex justify-between items-center">
+      <h2 className="text-left text-xl font-semibold mb-6">How computers process sound</h2>
+
+      <div className="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
         <Button
           onClick={() => setIsPlaying(!isPlaying)}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="w-full md:w-auto px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           {isPlaying ? "Pause" : "Play"}
         </Button>
 
-        <div className="space-x-2">
-          {stages.map((stage, i) => (
-            <Button key={i} onClick={() => setShowStage(i)} variant={showStage === i ? "default" : "secondary"}>
-              Stage {i + 1}
-            </Button>
-          ))}
-        </div>
+        {isSmallScreen ? (
+          <div className="flex flex-col gap-2">
+            <h3 className="text-medium font-medium">Stages</h3>
+
+            <div className="flex flex-wrap justify-center gap-2">
+              {stages.map((stage, index) => (
+                <Button
+                  key={stage}
+                  variant={showStage === index ? "default" : "secondary"}
+                  onClick={() => setShowStage(index)}
+                  className="text-sm"
+                >
+                  {index + 1}
+                </Button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-wrap justify-center gap-2">
+            {stages.map((stage, index) => (
+              <Button
+                key={stage}
+                variant={showStage === index ? "default" : "secondary"}
+                onClick={() => setShowStage(index)}
+                className="text-sm"
+              >
+                Stage {index + 1}
+              </Button>
+            ))}
+          </div>
+        )}
       </div>
 
-      <div className="relative min-h-[300px] flex flex-col border border-gray-200 rounded-lg">
+      {/* Description Panel */}
+      <div className="flex flex-col justify-center items-center bottom-0 left-0 right-0 bg-white p-4 ">
+        <h3 className="font-medium mb-2">{stages[showStage].title}</h3>
+        <p className="text-sm text-gray-600">
+          {showStage === 0 &&
+            "The microphone converts sound pressure waves into an analog electrical signal - a continuous wave that mirrors the air pressure changes."}
+          {showStage === 1 &&
+            "The analog signal is sampled at regular intervals (typically 44,100 times per second for CD-quality audio) to capture the wave's shape."}
+          {showStage === 2 &&
+            "Each sample is rounded to the nearest allowed amplitude value. 16-bit audio has 65,536 possible levels for high accuracy."}
+          {showStage === 3 &&
+            "The quantized values are converted to binary numbers. Each sample becomes a sequence of 1s and 0s."}
+          {showStage === 4 &&
+            "The digital signal can now be processed - filtered, amplified, or modified with effects - all through mathematical operations."}
+        </p>
+      </div>
+
+      <div className="relative flex flex-col border border-gray-200 rounded-lg">
         {/* Stage 1: Microphone/Analog */}
         {stages[0].active && (
           <div className="p-4 border-b">
@@ -223,23 +269,6 @@ const DigitalSoundProcessing = () => {
             </div>
           </div>
         )}
-
-        {/* Description Panel */}
-        <div className="flex flex-col justify-center items-center bottom-0 left-0 right-0 bg-white p-4 border-t">
-          <h3 className="font-medium mb-2">{stages[showStage].title}</h3>
-          <p className="text-sm text-gray-600">
-            {showStage === 0 &&
-              "The microphone converts sound pressure waves into an analog electrical signal - a continuous wave that mirrors the air pressure changes."}
-            {showStage === 1 &&
-              "The analog signal is sampled at regular intervals (typically 44,100 times per second for CD-quality audio) to capture the wave's shape."}
-            {showStage === 2 &&
-              "Each sample is rounded to the nearest allowed amplitude value. 16-bit audio has 65,536 possible levels for high accuracy."}
-            {showStage === 3 &&
-              "The quantized values are converted to binary numbers. Each sample becomes a sequence of 1s and 0s."}
-            {showStage === 4 &&
-              "The digital signal can now be processed - filtered, amplified, or modified with effects - all through mathematical operations."}
-          </p>
-        </div>
       </div>
     </div>
   );
