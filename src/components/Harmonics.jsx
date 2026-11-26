@@ -104,17 +104,25 @@ export default function HarmonicsExplainer() {
       <h1 className="text-3xl font-bold mb-6">Understanding Harmonics</h1>
 
       <p className="mb-4">
-        Harmonics are integer multiples of a fundamental frequency. They contribute to the timbre or color of a sound,
-        making different instruments sound unique even when playing the same note.
+        Harmonics are integer multiples of a fundamental frequency. They shape a sound&apos;s timbre (tone color), which
+        is why different instruments sound distinct even when playing the same note.
       </p>
 
       <div className="mb-6">
-        <canvas ref={canvasRef} width={800} height={400} className="w-full border rounded" />
+        <canvas
+          ref={canvasRef}
+          role="img"
+          aria-label="Fundamental frequency, individual harmonics, and combined sound wave"
+          width={800}
+          height={400}
+          className="w-full border rounded"
+        />
       </div>
 
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Fundamental Frequency: {fundamentalFrequency} Hz</h2>
         <Slider
+          aria-label="Fundamental frequency"
           value={[fundamentalFrequency]}
           onValueChange={(values) => setFundamentalFrequency(values[0])}
           min={220}
@@ -130,6 +138,7 @@ export default function HarmonicsExplainer() {
           <div key={index} className="flex items-center gap-4 mb-2">
             <span className="w-32">Harmonic {index + 1}:</span>
             <Slider
+              aria-label={`Harmonic ${index + 1} amplitude`}
               value={[amplitude]}
               onValueChange={(values) => {
                 const newAmplitudes = [...harmonicAmplitudes];
@@ -157,10 +166,8 @@ export default function HarmonicsExplainer() {
         <ul className="list-disc pl-6 space-y-2 flex flex-col justify-left items-start">
           <li>The fundamental frequency is the lowest and usually the strongest component of a sound.</li>
           <li>Harmonics are integer multiples of the fundamental frequency (2x, 3x, 4x, etc.).</li>
-          <li>The presence and strength of different harmonics give instruments their unique timbres.</li>
-          <li>
-            Adjust the sliders above to see and hear the effects of changing the amplitude of different harmonics.
-          </li>
+          <li>The mix and strength of harmonics give each instrument its distinct timbre.</li>
+          <li>Adjust the sliders above to see and hear how each harmonic changes the combined wave.</li>
         </ul>
       </div>
     </div>

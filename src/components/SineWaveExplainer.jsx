@@ -97,18 +97,26 @@ export default function SineWaveExplainer() {
       <h1 className="text-3xl font-bold mb-6">Representing Sound as Waves</h1>
 
       <p className="mb-4">
-        Sound can be represented as waves, with sine waves being the most fundamental. Other wave shapes like square,
-        sawtooth, and triangle are composed of multiple sine waves at different frequencies and amplitudes.
+        Sound can be represented as waves, and a sine wave is the simplest form. Square, sawtooth, and triangle waves
+        are built by combining multiple sine waves at different frequencies and amplitudes.
       </p>
 
       <div className="mb-6">
-        <canvas ref={canvasRef} width={800} height={300} className="w-full border rounded" />
+        <canvas
+          ref={canvasRef}
+          role="img"
+          aria-label={`${waveType} wave visualization`}
+          width={800}
+          height={300}
+          className="w-full border rounded"
+        />
       </div>
 
       <div className="grid grid-cols-2 gap-6 mb-6">
         <div>
           <h2 className="text-xl font-semibold mb-2">Frequency: {frequency} Hz</h2>
           <Slider
+            aria-label="Frequency"
             value={[frequency]}
             onValueChange={(values) => setFrequency(values[0])}
             min={20}
@@ -120,6 +128,7 @@ export default function SineWaveExplainer() {
         <div>
           <h2 className="text-xl font-semibold mb-2">Amplitude: {amplitude.toFixed(2)}</h2>
           <Slider
+            aria-label="Amplitude"
             value={[amplitude]}
             onValueChange={(values) => setAmplitude(values[0])}
             min={0}
@@ -131,10 +140,10 @@ export default function SineWaveExplainer() {
       </div>
 
       <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Wave Type</h2>
+        <h2 className="text-xl font-semibold mb-2">Wave Shape</h2>
         <Select value={waveType} onValueChange={(value) => setWaveType(value)}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Select wave type" />
+          <SelectTrigger aria-label="Wave shape" className="w-[180px]">
+            <SelectValue placeholder="Select wave shape" />
           </SelectTrigger>
           <SelectContent>
             {waveTypes.map((type) => (
@@ -157,18 +166,18 @@ export default function SineWaveExplainer() {
         <h2 className="text-2xl font-semibold mb-4">Understanding Sound Waves</h2>
         <ul className="list-disc pl-6 space-y-2">
           <li>
-            <strong>Frequency:</strong> The number of cycles per second, measured in Hertz (Hz). It determines the pitch
+            <strong>Frequency:</strong> The number of cycles per second, measured in hertz (Hz). It determines the pitch
             of the sound.
           </li>
           <li>
-            <strong>Amplitude:</strong> The height of the wave, which determines the volume or loudness of the sound.
+            <strong>Amplitude:</strong> The height of the wave, which determines how loud the sound is.
           </li>
           <li>
-            <strong>Wave Shape:</strong> Different wave shapes produce different timbres or tone colors:
+            <strong>Wave Shape:</strong> Different wave shapes produce different timbres (tone colors):
           </li>
           <ul className="list-circle pl-6 space-y-1">
             <li>
-              <strong>Sine:</strong> The purest tone, containing only the fundamental frequency.
+              <strong>Sine:</strong> A pure tone containing only the fundamental frequency.
             </li>
             <li>
               <strong>Square:</strong> Contains only odd harmonics, producing a hollow sound.

@@ -88,11 +88,12 @@ export default function NotesAndWaves() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Sound Physics Visualizer</h1>
+      <h1 className="text-3xl font-bold mb-6">Notes and Waves</h1>
       <div className="flex flex-wrap gap-4 mb-6">
         {notes.map((note) => (
           <Button
             key={note.name}
+            aria-label={`${note.name} (${note.frequency} Hz)`}
             onClick={() => setSelectedNote(note)}
             variant={selectedNote.name === note.name ? "default" : "outline"}
           >
@@ -101,11 +102,18 @@ export default function NotesAndWaves() {
         ))}
       </div>
       <div className="mb-6">
-        <canvas ref={canvasRef} width={800} height={200} className="w-full border rounded" />
+        <canvas
+          ref={canvasRef}
+          role="img"
+          aria-label={`Combined sound wave for ${selectedNote.name} at ${selectedNote.frequency} Hz`}
+          width={800}
+          height={200}
+          className="w-full border rounded"
+        />
       </div>
       <div className="flex justify-center mb-6">
         <Button onClick={isPlaying ? stopNote : playNote}>
-          {isPlaying ? "Stop" : "Play"} {selectedNote.name}
+          {isPlaying ? "Stop" : "Play"} {selectedNote.name} ({selectedNote.frequency} Hz)
         </Button>
       </div>
       <div className="space-y-4">
@@ -113,6 +121,7 @@ export default function NotesAndWaves() {
           <div key={index} className="flex items-center gap-4">
             <span className="w-24">Harmonic {index + 1}:</span>
             <Slider
+              aria-label={`Harmonic ${index + 1} amplitude`}
               value={[amplitude]}
               onValueChange={(values) => {
                 const newHarmonics = [...harmonics];
