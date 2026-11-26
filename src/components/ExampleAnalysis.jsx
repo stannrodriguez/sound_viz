@@ -152,7 +152,7 @@ export default function BeethovenClipAnalysis() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Beethoven&apos;s 5th Symphony - 10-Second Analysis</h1>
+      <h1 className="text-3xl font-bold mb-6">Beethoven&apos;s 5th Symphony: 10-Second Analysis</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <Card>
@@ -161,7 +161,14 @@ export default function BeethovenClipAnalysis() {
             <CardDescription>Frequency content over time</CardDescription>
           </CardHeader>
           <CardContent>
-            <canvas ref={spectrogramCanvasRef} width={400} height={200} className="w-full border rounded" />
+            <canvas
+              ref={spectrogramCanvasRef}
+              role="img"
+              aria-label="Spectrogram showing frequency content over time"
+              width={400}
+              height={200}
+              className="w-full border rounded"
+            />
           </CardContent>
         </Card>
         <Card>
@@ -170,19 +177,27 @@ export default function BeethovenClipAnalysis() {
             <CardDescription>Amplitude over time</CardDescription>
           </CardHeader>
           <CardContent>
-            <canvas ref={waveformCanvasRef} width={400} height={200} className="w-full border rounded" />
+            <canvas
+              ref={waveformCanvasRef}
+              role="img"
+              aria-label="Waveform showing amplitude over time"
+              width={400}
+              height={200}
+              className="w-full border rounded"
+            />
           </CardContent>
         </Card>
       </div>
 
       <div className="flex justify-between items-center mb-4">
-        <Button onClick={togglePlayPause}>{isPlaying ? "Pause" : "Play"}</Button>
+        <Button onClick={togglePlayPause}>{isPlaying ? "Pause clip" : "Play clip"}</Button>
         <div>
           {formatTime(currentTime)} / {formatTime(duration)}
         </div>
       </div>
 
       <Slider
+        aria-label="Playback position"
         value={[currentTime]}
         min={0}
         max={duration}
@@ -198,28 +213,25 @@ export default function BeethovenClipAnalysis() {
         <CardContent>
           <ul className="list-disc pl-6 space-y-2">
             <li>
-              <strong>Spectrogram:</strong> The colorful graph shows the frequency content of the music over time.
-              Brighter colors (towards yellow) indicate stronger presence of a frequency, while darker colors (towards
-              blue) indicate weaker presence.
+              <strong>Spectrogram:</strong> Shows the frequency content of the music over time. Warmer colors (toward
+              red) indicate stronger frequencies, while cooler colors (toward green) indicate weaker frequencies.
             </li>
             <li>
-              <strong>Waveform:</strong> This graph shows the amplitude of the sound wave over time. The peaks and
-              troughs represent the loudness of the audio at each moment.
+              <strong>Waveform:</strong> Shows the amplitude of the sound wave over time. Higher peaks and deeper
+              troughs indicate louder moments.
             </li>
             <li>
-              <strong>Beethoven&apos;s 5th:</strong> The famous opening motif (&quot;da da da DUM&quot;) is
-              characterized by strong low frequencies, followed by a brief pause, and then a sustained mid-range
-              frequency. You should be able to see this pattern in both the spectrogram and waveform.
+              <strong>Beethoven&apos;s 5th:</strong> The opening motif (&quot;da da da DUM&quot;) starts with strong low
+              frequencies, pauses briefly, and then holds a sustained mid-range frequency. This pattern appears in both
+              the spectrogram and the waveform.
             </li>
             <li>
-              <strong>Frequency Range:</strong> The vertical axis of the spectrogram represents frequency, with lower
-              frequencies at the bottom and higher frequencies at the top. You might notice that most of the energy is
-              concentrated in the lower to mid-range frequencies, which is typical for orchestral music.
+              <strong>Frequency Range:</strong> The vertical axis of the spectrogram shows frequency, from low at the
+              bottom to high at the top. Most orchestral energy sits in the low to mid-range frequencies.
             </li>
             <li>
-              <strong>Time Domain:</strong> The horizontal axis of both graphs represents time. As you play the audio,
-              you&apos;ll see the graphs update in real-time, showing how the frequency content and amplitude change
-              throughout the clip.
+              <strong>Time Axis:</strong> The horizontal axis of both graphs represents time. During playback, both
+              graphs update in real time to show how frequency content and amplitude change across the clip.
             </li>
           </ul>
         </CardContent>

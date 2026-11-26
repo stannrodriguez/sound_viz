@@ -90,6 +90,7 @@ const AirMoleculeVis = () => {
           <h2 className="text-left text-lg sm:text-xl font-medium">Air Molecule Movement</h2>
           <button
             onClick={() => setIsPlaying(!isPlaying)}
+            aria-label={isPlaying ? "Pause air molecule animation" : "Play air molecule animation"}
             className="px-3 py-1 sm:px-4 sm:py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm sm:text-base"
           >
             {isPlaying ? "Pause" : "Play"}
@@ -100,6 +101,7 @@ const AirMoleculeVis = () => {
           <span className="text-xs sm:text-sm w-16 sm:w-20">Frequency:</span>
           <input
             type="range"
+            aria-label="Frequency"
             min="0.5"
             max="2"
             step="0.1"
@@ -113,6 +115,7 @@ const AirMoleculeVis = () => {
           <span className="text-xs sm:text-sm w-16 sm:w-20">Amplitude:</span>
           <input
             type="range"
+            aria-label="Amplitude"
             min="0.2"
             max="2"
             step="0.1"
@@ -124,7 +127,13 @@ const AirMoleculeVis = () => {
       </div>
 
       <div className="relative h-60 sm:h-80 border border-gray-200 rounded-lg overflow-hidden">
-        <svg width="100%" height="100%" viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
+        <svg
+          role="img"
+          aria-label="Air molecules oscillating to form compression and rarefaction bands"
+          width="100%"
+          height="100%"
+          viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
+        >
           {molecules.map((molecule, i) => (
             <g key={i}>
               <circle cx={molecule.x} cy={molecule.y} r={spacing / 4} fill="#60a5fa" opacity={molecule.opacity * 0.2} />
@@ -135,7 +144,7 @@ const AirMoleculeVis = () => {
 
         {!isSmallScreen && (
           <div className="absolute top-2 left-2 text-xs sm:text-sm">
-            Areas of:
+            Pressure zones:
             <div className="flex items-center gap-1 sm:gap-2 mt-1">
               <div className="w-2 h-2 sm:w-3 sm:h-3 bg-blue-500 opacity-30 rounded-full"></div>
               <span>Compression</span>
@@ -151,21 +160,26 @@ const AirMoleculeVis = () => {
       <div className="mt-3 sm:mt-4 text-xs sm:text-sm text-gray-600">
         <strong>What you&apos;re seeing:</strong>
         <ul className="list-disc ml-4 sm:ml-5 mt-1 sm:mt-2">
-          <li>Blue dots represent air molecules</li>
-          <li>Higher frequency = faster oscillation</li>
-          <li>Higher amplitude = greater displacement</li>
-          <li>Dark areas show compression (molecules closer together)</li>
-          <li>Light areas show rarefaction (molecules farther apart)</li>
+          <li>Blue dots represent air molecules.</li>
+          <li>Higher frequency produces faster oscillation.</li>
+          <li>Higher amplitude produces greater displacement.</li>
+          <li>Darker areas show compression, where molecules are closer together.</li>
+          <li>Lighter areas show rarefaction, where molecules are farther apart.</li>
         </ul>
       </div>
 
       <p className="text-left text-sm text-gray-600 pt-4">
-        Sine waves represent sound by modeling the smooth, oscillating pressure changes that create vibrations.
+        A sine wave models these smooth, repeating pressure changes over time.
       </p>
 
       {/* Digital Sine Wave */}
       <div className="relative h-32 sm:h-48 md:h-54">
-        <svg className="w-full h-full pt-10 sm:h-48 md:h-54" viewBox="0 0 300 100">
+        <svg
+          role="img"
+          aria-label="Sine wave plotting amplitude over time"
+          className="w-full h-full pt-10 sm:h-48 md:h-54"
+          viewBox="0 0 300 100"
+        >
           {/* X-axis */}
           <line x1="0" y1="50" x2="300" y2="50" stroke="#94a3b8" strokeWidth="1" />
           <text x="290" y="65" fontSize="10" fill="#94a3b8">
