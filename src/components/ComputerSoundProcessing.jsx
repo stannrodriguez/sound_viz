@@ -53,7 +53,7 @@ const DigitalSoundProcessing = () => {
     { title: "Sampling (ADC)", active: showStage >= 1 },
     { title: "Quantization", active: showStage >= 2 },
     { title: "Binary Encoding", active: showStage >= 3 },
-    { title: "Digital Processing", active: showStage >= 4 },
+    { title: "Digital Signal Processing", active: showStage >= 4 },
   ];
 
   return (
@@ -63,6 +63,7 @@ const DigitalSoundProcessing = () => {
       <div className="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
         <Button
           onClick={() => setIsPlaying(!isPlaying)}
+          aria-label={isPlaying ? "Pause computer sound processing animation" : "Play computer sound processing animation"}
           className="w-full md:w-auto px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           {isPlaying ? "Pause" : "Play"}
@@ -76,6 +77,7 @@ const DigitalSoundProcessing = () => {
               {stages.map((stage, index) => (
                 <Button
                   key={stage}
+                  aria-label={`Stage ${index + 1}: ${stage.title}`}
                   variant={showStage === index ? "default" : "secondary"}
                   onClick={() => setShowStage(index)}
                   className="text-sm"
@@ -90,6 +92,7 @@ const DigitalSoundProcessing = () => {
             {stages.map((stage, index) => (
               <Button
                 key={stage}
+                aria-label={`Stage ${index + 1}: ${stage.title}`}
                 variant={showStage === index ? "default" : "secondary"}
                 onClick={() => setShowStage(index)}
                 className="text-sm"
@@ -106,15 +109,15 @@ const DigitalSoundProcessing = () => {
         <h3 className="font-medium mb-2">{stages[showStage].title}</h3>
         <p className="text-sm text-gray-600">
           {showStage === 0 &&
-            "The microphone converts sound pressure waves into an analog electrical signal - a continuous wave that mirrors the air pressure changes."}
+            "A microphone converts sound pressure waves into an analog electrical signal, a continuous wave that mirrors changes in air pressure."}
           {showStage === 1 &&
             "The analog signal is sampled at regular intervals (typically 44,100 times per second for CD-quality audio) to capture the wave's shape."}
           {showStage === 2 &&
-            "Each sample is rounded to the nearest allowed amplitude value. 16-bit audio has 65,536 possible levels for high accuracy."}
+            "Each sample is rounded to the nearest discrete amplitude level. In 16-bit audio, there are 65,536 possible levels."}
           {showStage === 3 &&
             "The quantized values are converted to binary numbers. Each sample becomes a sequence of 1s and 0s."}
           {showStage === 4 &&
-            "The digital signal can now be processed - filtered, amplified, or modified with effects - all through mathematical operations."}
+            "Once digital, the signal can be filtered, amplified, or modified with effects using mathematical operations."}
         </p>
       </div>
 
@@ -209,7 +212,7 @@ const DigitalSoundProcessing = () => {
         {/* Stage 4: Binary Encoding */}
         {stages[3].active && (
           <div className="p-4 border-b">
-            <h3 className="text-sm font-medium mb-2">Binary Data</h3>
+            <h3 className="text-sm font-medium mb-2">Binary Encoding</h3>
             <div className="grid grid-cols-2 gap-4">
               {generateSamplePoints(time)
                 .slice(0, 4)
