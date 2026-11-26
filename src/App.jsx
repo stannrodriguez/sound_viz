@@ -48,7 +48,7 @@ function SoundPhysicsApp() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <nav className="bg-primary text-primary-foreground p-4">
+      <nav aria-label="Main navigation" className="bg-primary text-primary-foreground p-4">
         <div className="max-w-4xl mx-auto flex flex-wrap">
           <h1 className="text-2xl p-3 font-bold mb-2 md:mb-0">Sound Physics Visualizer</h1>
           <div className="px-2 py-2 flex flex-row gap-2">
@@ -68,7 +68,7 @@ function SoundPhysicsApp() {
               variant={currentView === "sinewave" ? "secondary" : "default"}
               onClick={() => setCurrentView("sinewave")}
             >
-              Sine Waves
+              Sound Waves
             </Button>
             <Button
               variant={currentView === "fourier" ? "secondary" : "default"}
@@ -80,7 +80,7 @@ function SoundPhysicsApp() {
               variant={currentView === "Example" ? "secondary" : "default"}
               onClick={() => setCurrentView("Example")}
             >
-              Example Analysis
+              Audio Analysis
             </Button>
           </div>
         </div>
