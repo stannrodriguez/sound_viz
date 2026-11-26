@@ -79,27 +79,41 @@ export default function FourierTransform() {
       <h1 className="text-3xl font-bold mb-6">Fourier Transform and Sound</h1>
 
       <p className="mb-4">
-        The Fourier Transform decomposes a complex wave into its constituent sine waves. This is fundamental in audio
-        processing and helps us understand how different wave shapes are created from simple sine waves.
+        The Fourier Transform breaks a complex wave into the individual sine waves that make it up. Audio processing
+        relies on this to analyze how different wave shapes are built from simple sine waves.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
           <h2 className="text-xl font-semibold mb-2">Time Domain</h2>
-          <canvas ref={timeCanvasRef} width={400} height={200} className="w-full border rounded" />
+          <canvas
+            ref={timeCanvasRef}
+            role="img"
+            aria-label={`${waveType} wave in the time domain`}
+            width={400}
+            height={200}
+            className="w-full border rounded"
+          />
         </div>
         <div>
           <h2 className="text-xl font-semibold mb-2">Frequency Domain</h2>
-          <canvas ref={freqCanvasRef} width={400} height={200} className="w-full border rounded" />
+          <canvas
+            ref={freqCanvasRef}
+            role="img"
+            aria-label={`${waveType} wave harmonic spectrum in the frequency domain`}
+            width={400}
+            height={200}
+            className="w-full border rounded"
+          />
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
-          <h2 className="text-xl font-semibold mb-2">Wave Type</h2>
+          <h2 className="text-xl font-semibold mb-2">Wave Shape</h2>
           <Select value={waveType} onValueChange={setWaveType}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select wave type" />
+            <SelectTrigger aria-label="Wave shape" className="w-[180px]">
+              <SelectValue placeholder="Select wave shape" />
             </SelectTrigger>
             <SelectContent>
               {waveTypes.map((type) => (
@@ -113,6 +127,7 @@ export default function FourierTransform() {
         <div>
           <h2 className="text-xl font-semibold mb-2">Number of Harmonics: {numHarmonics}</h2>
           <Slider
+            aria-label="Number of harmonics"
             value={[numHarmonics]}
             onValueChange={(values) => setNumHarmonics(values[0])}
             min={1}
@@ -127,12 +142,11 @@ export default function FourierTransform() {
         <h2 className="text-2xl font-semibold mb-4">Understanding the Fourier Transform</h2>
         <ul className="list-disc pl-6 space-y-2">
           <li>
-            <strong>Time Domain:</strong> This is how we typically visualize sound waves, with amplitude changing over
-            time.
+            <strong>Time Domain:</strong> Shows how the wave&apos;s amplitude changes over time.
           </li>
           <li>
-            <strong>Frequency Domain:</strong> The Fourier Transform converts the time domain signal into the frequency
-            domain, showing the amplitude of each frequency component.
+            <strong>Frequency Domain:</strong> Shows the amplitude of each frequency component after applying the
+            Fourier Transform.
           </li>
           <li>
             <strong>Harmonics:</strong> Complex waves are made up of multiple sine waves at different frequencies
