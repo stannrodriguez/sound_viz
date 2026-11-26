@@ -43,17 +43,18 @@ const SoundProcessing = () => {
   const stages = [
     { title: "Air Pressure Waves", active: showStage >= 0 },
     { title: "Eardrum Vibration", active: showStage >= 1 },
-    { title: "Cochlear Movement", active: showStage >= 2 },
+    { title: "Cochlear Fluid Waves", active: showStage >= 2 },
     { title: "Hair Cell Response", active: showStage >= 3 },
     { title: "Neural Signals", active: showStage >= 4 },
   ];
 
   return (
     <div className="pt-6">
-      <h2 className="text-left text-xl font-semibold mb-6">How the brain processes sound</h2>
+      <h2 className="text-left text-xl font-semibold mb-6">How the ear and brain process sound</h2>
       <div className="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
         <Button
           onClick={() => setIsPlaying(!isPlaying)}
+          aria-label={isPlaying ? "Pause ear and brain processing animation" : "Play ear and brain processing animation"}
           className="w-full md:w-auto px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           {isPlaying ? "Pause" : "Play"}
@@ -67,6 +68,7 @@ const SoundProcessing = () => {
               {stages.map((stage, index) => (
                 <Button
                   key={stage}
+                  aria-label={`Stage ${index + 1}: ${stage.title}`}
                   variant={showStage === index ? "default" : "secondary"}
                   onClick={() => setShowStage(index)}
                   className="text-sm"
@@ -81,6 +83,7 @@ const SoundProcessing = () => {
             {stages.map((stage, index) => (
               <Button
                 key={stage}
+                aria-label={`Stage ${index + 1}: ${stage.title}`}
                 variant={showStage === index ? "default" : "secondary"}
                 onClick={() => setShowStage(index)}
                 className="text-sm"
@@ -96,11 +99,10 @@ const SoundProcessing = () => {
       <div className="flex flex-col justify-center items-center bottom-0 left-0 right-0 bg-white p-4 ">
         <h3 className="font-medium mb-2">{stages[showStage].title}</h3>
         <p className="text-sm text-gray-600">
-          {showStage === 0 &&
-            "Sound waves create areas of high and low air pressure that travel through the air to your ear."}
+          {showStage === 0 && "Sound creates waves of high and low air pressure that travel to your ear."}
           {showStage === 1 && "These pressure waves cause your eardrum (tympanic membrane) to vibrate back and forth."}
           {showStage === 2 &&
-            "The vibrations travel through the middle ear bones into the cochlea, creating waves in the fluid."}
+            "The vibrations travel through the middle ear bones into the cochlea, creating waves in its fluid."}
           {showStage === 3 &&
             "These fluid waves bend tiny hair cells, which convert mechanical motion into electrical signals."}
           {showStage === 4 &&
@@ -130,7 +132,7 @@ const SoundProcessing = () => {
         {/* Stage 2: Eardrum Vibration */}
         {stages[1].active && (
           <div className="p-4 border-b">
-            <h3 className="text-sm font-medium mb-2">Eardrum Movement</h3>
+            <h3 className="text-sm font-medium mb-2">Eardrum Vibration</h3>
             <svg className="w-full h-20" viewBox="0 0 300 60">
               {/* Eardrum membrane */}
               <path
@@ -169,7 +171,7 @@ const SoundProcessing = () => {
         {/* Stage 4: Hair Cell Response */}
         {stages[3].active && (
           <div className="p-4 border-b">
-            <h3 className="text-sm font-medium mb-2">Hair Cell Activation</h3>
+            <h3 className="text-sm font-medium mb-2">Hair Cell Response</h3>
             <svg className="w-full h-20" viewBox="0 0 300 60">
               {[...Array(10)].map((_, i) => {
                 const bend = Math.sin((time + i * 20) * 0.1) * 10;
@@ -187,7 +189,7 @@ const SoundProcessing = () => {
         {/* Stage 5: Neural Signals */}
         {stages[4].active && (
           <div className="p-4">
-            <h3 className="text-sm font-medium mb-2">Neural Firing Pattern</h3>
+            <h3 className="text-sm font-medium mb-2">Neural Signals</h3>
             <svg className="w-full h-20" viewBox="0 0 300 60">
               {/* Baseline */}
               <line x1="0" y1="30" x2="300" y2="30" stroke="#9ca3af" />
